@@ -13,10 +13,13 @@ if not settings.configured:
             }
         },
         INSTALLED_APPS=(
+            'django.contrib.contenttypes',
+            'django.contrib.auth',
             'django_fastspring',
         ),
         SITE_ID=1,
         SECRET_KEY='this-is-just-for-tests-so-not-that-secret',
+        ROOT_URLCONF= 'django_fastspring.urls',
     )
 
 
