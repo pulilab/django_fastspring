@@ -24,5 +24,6 @@ class ActivateSubscriptionTest(TestCase):
         fastspring.getSubscription = MagicMock(name='getSubscription', return_value=mock_subscription)
 
         resp = self.client.post('/subscriptions/activated/', data={'reference': 'VID123456789', 'user': self.user.pk})
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content, 'OK')
         self.assertEqual(self.user.subscription_set.filter(status='active').count(), 1)
