@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger('fastspring')
+
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView
 
@@ -10,5 +13,6 @@ class ActivateSubscription(CreateView):
     form_class = CreateSubscriptionForm
 
     def form_valid(self, form):
+        logger.debug('ActivateSubscription form_valid was called')
         self.object = form.save()
         return HttpResponse('OK')

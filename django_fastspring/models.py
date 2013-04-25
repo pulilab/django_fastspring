@@ -5,6 +5,9 @@ from model_utils.choices import Choices
 
 import fastspring
 
+import logging
+logger = logging.getLogger('fastspring')
+
 
 class Subscription(StatusModel):
     STATUS = Choices('active', 'inactive')
@@ -26,6 +29,7 @@ class Subscription(StatusModel):
             self.productName = subscription.productName
             self.quantity = subscription.quantity
             self.is_test = subscription.is_test
+            logger.debug('New subscription: %s' % str(self))
         return super(Subscription, self).save(*args, **kwargs)
 
     def updateFromFastspring(self, fields=['nextPeriodDate', 'status', 'productName', 'quantity', 'is_test']):
@@ -38,6 +42,7 @@ class Subscription(StatusModel):
         for f in fields:
             setattr(self, f, getattr(subscription, f, None))
         self.save()
+        logger.debug('Subscription %s was updated' % self.reference)
         return self
 
     def updateOnFastspring(self):
