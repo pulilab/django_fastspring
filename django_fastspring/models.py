@@ -7,14 +7,13 @@ import fastspring
 
 
 class Subscription(StatusModel):
-    PLANS = Choices('plan1', 'plan2', 'plan3')
     STATUS = Choices('active', 'inactive')
 
     user = models.ForeignKey(User)
 
     reference = models.CharField(max_length=255)
     nextPeriodDate = models.DateField(null=True)
-    productName = models.CharField(max_length=255, choices=PLANS, blank=False, null=False)
+    productName = models.CharField(max_length=255, blank=False, null=False)
     quantity = models.IntegerField()
     is_test = models.BooleanField(blank=True)
     is_active = property(lambda self: self.status == 'active')
