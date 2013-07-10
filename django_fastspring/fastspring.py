@@ -4,11 +4,15 @@ Fastspring API wrapper
 Partly based on https://github.com/projectfusion/fastspring/blob/master/fastspring.py
 """
 
+import logging
+
 import base64
 import datetime
 import urllib2
 
 from xml.etree import ElementTree
+
+logger = logging.getLogger('fastspring-api')
 
 TEST_MODE = True
 STORE_ID = ''
@@ -165,6 +169,7 @@ def simpleCurl(url, data=None, method='GET'):
     # To get say the content-length header
     # length = result.info()['Content-Length']
     try:
+        logger.debug("Url %s was fetched" % url)
         return Subscription(result.read()), result.getcode()
     except ElementTree.ParseError:
         raise ResponseParseError
@@ -225,4 +230,5 @@ def renewSubscription(subscription_ref):
 
 if __name__ == '__main__':
     import doctest
+    from test_settings import STORE_ID, USERNAME, PASSWORD
     doctest.testmod()

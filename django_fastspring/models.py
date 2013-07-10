@@ -46,10 +46,19 @@ class Subscription(StatusModel):
         return self
 
     def updateOnFastspring(self):
+        """
+        Update Fastspring entry with DB data.
+        """
         raise NotImplementedError
 
     def renew(self):
+        """
+        Renew the subscription initiated from our side
+        """
         raise NotImplementedError
 
     def cancel(self):
+        """
+        Cancel the subscription initiated from our side
+        """
         raise NotImplementedError

@@ -2,7 +2,7 @@ import datetime
 from mock import MagicMock
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, Client
 
 from django_fastspring import fastspring
 
@@ -12,6 +12,7 @@ class ActivateSubscriptionTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(username='me@example.com', email='me@example.com', password='mypass')
+        self.client = Client(enforce_csrf_checks=True)
 
     def test_create_subscription(self):
         mock_subscription = type('Subscription', (object,), {
